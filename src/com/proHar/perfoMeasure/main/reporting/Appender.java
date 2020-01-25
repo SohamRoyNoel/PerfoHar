@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Appender {
 
-	public static void appendStrToFile(String fileName,List<String> str)
+	public void appendStrToFile(String fileName,List<String> str)
 	{
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(fileName, true));
