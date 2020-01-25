@@ -3,6 +3,7 @@ package com.proHar.perfoMeasure.main;
 import java.io.File;
 import java.io.IOException;
 
+import com.proHar.perfoMeasure.main.reporting.ListFileUtils;
 import com.proHar.perfoMeasure.main.reporting.ReporterAgent;
 
 public class App {
@@ -25,9 +26,23 @@ public class App {
 			ValueParser.NavigationAnalyser();
 		} catch (InterruptedException e) {	}
 		
+		// Log to file
+		try {
+			ReportingAgent();
+		} catch (InterruptedException e) {	}
+	}
+	
+	public static void ReportingAgent() throws InterruptedException {
+		String workingPath = System.getProperty("user.dir");
+		String workingFOLDERpath = workingPath + "\\Output";
 		ReporterAgent ra = new ReporterAgent();
-		ra.getReport(getNAVlocation(workingFOLDERpath), getRESlocation(workingFOLDERpath));
-		
+		String nav = getNAVlocation(workingFOLDERpath);
+		String res = getRESlocation(workingFOLDERpath);
+		ra.getReport(nav, res);
+		Thread.sleep(3000);
+		try {
+			ListFileUtils.GenerateValueFromExcel(nav, res, workingFOLDERpath);
+		} catch (IOException e) { }
 	}
 	
 	public static String getNAVlocation(String baseFolderPath) {
@@ -38,7 +53,7 @@ public class App {
 	}
 
 	public static String getRESlocation(String baseFolderPath) {
-		String resourcesPath = baseFolderPath + "\\\\resTemp.txt";
+		String resourcesPath = baseFolderPath + "\\resTemp.txt";
 		File resFile = new File(resourcesPath);
 		createFile(resFile);
 		return resourcesPath;

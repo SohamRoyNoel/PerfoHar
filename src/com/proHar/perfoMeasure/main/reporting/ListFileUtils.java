@@ -11,66 +11,73 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ListFileUtils {
 	static ReportGenerationHelperClass reportGenerationHelperObj = new ReportGenerationHelperClass();
 
-	public static void Converter(String args,String args1) throws IOException, InterruptedException {
-		String test=args;
-		System.out.println(test);
-		final String directoryWindows =test;
-		String outputDirLocation=args1+"\\";
-		String temp_file1=args1+"\\Temp1.txt";
-		File f1 = new File(temp_file1);
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		XSSFSheet XSSFSheetSummary = reportGenerationHelperObj.createReportSheet("Summary", workbook);
-		createSummaryReport(XSSFSheetSummary, workbook);
-		BufferedReader bufferedReader = new BufferedReader(new FileReader(temp_file1));
-		String line = null;
-		int line_count=1;
-		String[] temp;
-		//delimiter
-		String delimiter = ",";
-		String str = " ";
-		String str1 = " ";
-		String str2 = " ";
-		String str3 = " ";
-		String str4 = " ";
-		String str5 = " "; // Recheck Status Unique ID
+	public static void GenerateValueFromExcel(String nav,String res, String Reportgenpath) throws IOException, InterruptedException {
 
-		while ((line = bufferedReader.readLine()) != null) {
-			// given string will be split by the argument delimiter provided.
-			temp = line.split(delimiter);
-			//print substrings
-			for(int i =0; i < temp.length ; i++){
-				str = temp[0];
-				str1 = temp[1];
-				str2 = temp[2];
-				str3 = temp[3];
-				str4 = temp[4];
-				str5 = str1.substring(str1.lastIndexOf("\\")+1, str1.lastIndexOf("_"));
+		File f1 = new File(nav);
+		File f2 = new File(res);
+		if (f1.getName().equalsIgnoreCase("navTemp.txt")) {
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet XSSFSheetSummary = reportGenerationHelperObj.createReportSheet("Navigation Timing", workbook);
+			createSummaryReport(XSSFSheetSummary, workbook);
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(f1));
+			String line = null;
+			int line_count=1;
+			String[] temp;
+			//delimiter
+			String delimiter = ",";
+			while ((line = bufferedReader.readLine()) != null) {
+				temp = line.split(delimiter);
+				writeDataIntoCellsMismatch(line_count, XSSFSheetSummary, workbook, temp[0], temp[1], temp[2], temp[3], temp[4], temp[5],temp[6],temp[7],temp[8],temp[9],temp[10],temp[11]);
+				line_count++;
 			}
-			writeDataIntoCellsMismatch(line_count, XSSFSheetSummary, workbook, str, str1, str2, str3, str4, str5);
-			line_count++;
+			bufferedReader.close();
+			String path1= reportGenerationHelperObj.createReportDirectoryAndGetPath(Reportgenpath);
+			reportGenerationHelperObj.writeWorkbook(path1 + "\\Navigation_Status" + ".xlsx", workbook);
+			workbook.close();
 		}
-		bufferedReader.close();
-		String path1= reportGenerationHelperObj.createReportDirectoryAndGetPath("\\\\entsserver85\\cognizant\\DSTScriptRunner\\Reports\\");
-		//                            String path1= reportGenerationHelperObj.createReportDirectoryAndGetPath(outputDirLocation);
-		// write to excel file
-		reportGenerationHelperObj.writeWorkbook(path1 + "\\Overall_test_report" + ".xlsx", workbook);
-		File file = new File(temp_file1);
-		workbook.close();
-		///
-		if (file.exists() && file.isFile())
-		{
-			//file.delete();
+		if (f2.getName().equalsIgnoreCase("resTemp.txt")) {
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet XSSFSheetSummary = reportGenerationHelperObj.createReportSheet("Resource Timing", workbook);
+			createSummaryReport2(XSSFSheetSummary, workbook);
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(f2));
+			String line = null;
+			int line_count=1;
+			String[] temp;
+			//delimiter
+			String delimiter = ",";
+			while ((line = bufferedReader.readLine()) != null) {
+				temp = line.split(delimiter);
+				writeDataIntoCellsMismatch(line_count, XSSFSheetSummary, workbook, temp[0], temp[1], temp[2], temp[3], temp[4]);
+				line_count++;
+			}
+			bufferedReader.close();
+			String path1= reportGenerationHelperObj.createReportDirectoryAndGetPath(Reportgenpath);
+			reportGenerationHelperObj.writeWorkbook(path1 + "\\Resource_Status" + ".xlsx", workbook);
+			workbook.close();
 		}
+		f1.delete();
+		f2.delete();
 	}
 
 	private static void createSummaryReport(XSSFSheet XSSFSheetMismatch, XSSFWorkbook workbook) {
-		String[] columnNames = {"Folder Name", "Source File Name", "Target File Name","Status","Comment","UniqueID"};
+		String[] columnNames = {"appName", "baseUrl", "Unload","Redirect","AppCache","TTFB","Processing","Dom_Interactive","Dom_Complete","Content_load","Page_load","Date"};
 		reportGenerationHelperObj.createRowInExcel(0, columnNames, XSSFSheetMismatch, workbook, reportGenerationHelperObj.createCellStyle(workbook));
 	}
 	static int rownum = 1;
 
-	private static void writeDataIntoCellsMismatch(int row, XSSFSheet XSSFSheet, XSSFWorkbook workbook, String Folder_Name, String Source_File_Name, String Target_File_Name, String Status, String Comment, String UniqueID) {
-		String[] rowData = {Folder_Name, Source_File_Name, Target_File_Name,Status,Comment,UniqueID};
+	private static void writeDataIntoCellsMismatch(int row, XSSFSheet XSSFSheet, XSSFWorkbook workbook, String appName, String baseUrl, String Unload,String Redirect,String AppCache,String TTFB,String Processing,String Dom_Interactive,String Dom_Complete,String Content_load,String Page_load, String stringDate) {
+		String[] rowData = {appName, baseUrl, Unload,Redirect,AppCache,TTFB,Processing,Dom_Interactive,Dom_Complete,Content_load,Page_load, stringDate};
+		reportGenerationHelperObj.createRowInExcel(row, rowData, XSSFSheet, workbook, reportGenerationHelperObj.createCellStyle1(workbook));
+	}
+	
+	private static void createSummaryReport2(XSSFSheet XSSFSheetMismatch, XSSFWorkbook workbook) {
+		String[] columnNames = {"AppName", "BaseUrl", "ElementName","Duration","Date"};
+		reportGenerationHelperObj.createRowInExcel(0, columnNames, XSSFSheetMismatch, workbook, reportGenerationHelperObj.createCellStyle(workbook));
+	}
+//	static int rownum = 1;
+
+	private static void writeDataIntoCellsMismatch(int row, XSSFSheet XSSFSheet, XSSFWorkbook workbook, String appName, String baseUrl, String elementName,String Duration,String date) {
+		String[] rowData = {appName, baseUrl, elementName,Duration,date};
 		reportGenerationHelperObj.createRowInExcel(row, rowData, XSSFSheet, workbook, reportGenerationHelperObj.createCellStyle1(workbook));
 	}
 

@@ -95,14 +95,12 @@ public class ValueParser {
 						wait = 0;
 					}
 					double durations = time;
-					//                         System.out.println("BLOCKED : " + blocked + " DNS : " + dns + " CONNECT : " + connect + " SEND : " + send + " RECEIVE : " + receive + " SSL : " + ssl + " Time : " + time + " Durations : " + durations);
 
 					// Getting the Total Value
 					Date date = new Date();
 					DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 					String stringDate = sdf.format(date);
 					createValueString = appName+","+baseUrl+","+elementHolder.get("name").toString()+","+durations+","+stringDate+System.lineSeparator();
-//					System.out.println("Value String : " + createValueString);
 					resHolder.add(createValueString);
 				}                  
 			}
@@ -174,7 +172,7 @@ public class ValueParser {
 
 		// Navigation Timings
 		String navigationStatusString = js.executeScript("return window.performance.getEntries()["+0+"]").toString();
-//		System.out.println("Navigation : " + navigationStatusString);
+
 		// get Navigation value string length
 		int length = navigationStatusString.length();
 		System.out.println(length);
@@ -244,7 +242,7 @@ public class ValueParser {
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		String stringDate = sdf.format(date);
 		createValueString = appName+","+baseUrl+","+Unload+","+Redirect+","+AppCache+","+TTFB+","+Processing+","+Dom_Interactive+","+Dom_Complete+","+Content_load+","+Page_load+","+stringDate+System.lineSeparator();
-//		System.out.println(createValueString);
+
 		navHolder.add(createValueString);
 	}
 
