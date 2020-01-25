@@ -3,12 +3,15 @@ package com.proHar.perfoMeasure.main;
 import java.io.File;
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
+
 import com.proHar.perfoMeasure.main.reporting.ListFileUtils;
 import com.proHar.perfoMeasure.main.reporting.ReporterAgent;
 
 public class App {
 
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
+	public void Performer(WebDriver driver) {
 		
 		// DirecTory Allocations
 		String workingPath = System.getProperty("user.dir");
@@ -20,19 +23,18 @@ public class App {
 			targetPath.mkdir();
 		}
 		
+		String BaseUrl = driver.getCurrentUrl();
+		String base = BaseUrl.substring(BaseUrl.indexOf(".")+1, BaseUrl.indexOf(".com"));
+		
 		// Performance Methods
 		try {
-			ValueParser.ResourceAnalyser();
-			ValueParser.NavigationAnalyser();
+			ValueParser.ResourceAnalyser(driver, base);
+			ValueParser.NavigationAnalyser(driver, base);
 		} catch (InterruptedException e) {	}
-		
-		// Log to file
-		try {
-			ReportingAgent();
-		} catch (InterruptedException e) {	}
+
 	}
 	
-	public static void ReportingAgent() throws InterruptedException {
+	public void ReportingAgent() throws InterruptedException {
 		String workingPath = System.getProperty("user.dir");
 		String workingFOLDERpath = workingPath + "\\Output";
 		ReporterAgent ra = new ReporterAgent();

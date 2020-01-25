@@ -18,7 +18,7 @@ public class ValueParser {
 	
 	// Resource Status
 	@SuppressWarnings("unused")
-	public static void ResourceAnalyser() throws InterruptedException{
+	public static void ResourceAnalyser(WebDriver driver, String base) throws InterruptedException{
 
 		String encodedBodySize = "";
 		String entryType = "";
@@ -47,15 +47,9 @@ public class ValueParser {
 		String createValueString = "";
 		String baseURL="";
 
-		System.setProperty("webdriver.chrome.driver","E:\\Jars\\ChromeDriver-79\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().deleteAllCookies();
-		String baseUrl = "https://stackoverflow.com/questions/32970855/clear-cache-before-running-some-selenium-webdriver-tests-using-java"; 
-
-		driver.get(baseUrl);
 		Thread.sleep(3000);
 		baseURL = driver.getCurrentUrl();
-		appName = baseURL.startsWith("https://") == true ? baseURL.substring(8, baseUrl.lastIndexOf(".com")+4) : baseURL.substring(7, baseUrl.lastIndexOf(".com")+4);
+		appName = base;
 		JavascriptExecutor js =(JavascriptExecutor)driver;
 		int Counter = Integer.parseInt(js.executeScript("return window.performance.getEntriesByType('resource').length").toString());
 		System.out.println(Counter);
@@ -100,7 +94,7 @@ public class ValueParser {
 					Date date = new Date();
 					DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 					String stringDate = sdf.format(date);
-					createValueString = appName+","+baseUrl+","+elementHolder.get("name").toString()+","+durations+","+stringDate+System.lineSeparator();
+					createValueString = appName+","+baseURL+","+elementHolder.get("name").toString()+","+durations+","+stringDate+System.lineSeparator();
 					resHolder.add(createValueString);
 				}                  
 			}
@@ -109,7 +103,7 @@ public class ValueParser {
 
 	// Navigation Status
 	@SuppressWarnings("unused")
-	public static void NavigationAnalyser() throws InterruptedException{
+	public static void NavigationAnalyser(WebDriver driver, String base) throws InterruptedException{
 		// 32 Common fields in case of NAVIGATION
 		String redirectCount="";
 		String encodedBodySize="";
@@ -159,15 +153,10 @@ public class ValueParser {
 		double Content_load;
 		double Page_load;
 
-		System.setProperty("webdriver.chrome.driver","E:\\Jars\\ChromeDriver-79\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().deleteAllCookies();
-		String baseUrl = "https://www.johnhancock.com/individual.html";
-		driver.get(baseUrl);
 		Thread.sleep(3000);
-		baseURL = driver.getCurrentUrl();
 
-		appName = baseURL.startsWith("https://") == true ? baseURL.substring(8, baseUrl.lastIndexOf(".com")+4) : baseURL.substring(7, baseUrl.lastIndexOf(".com")+4);
+		appName = base;
+		System.out.println("appname :" +appName);
 		JavascriptExecutor js =(JavascriptExecutor)driver;
 
 		// Navigation Timings
@@ -241,7 +230,7 @@ public class ValueParser {
 		Date date = new Date();
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		String stringDate = sdf.format(date);
-		createValueString = appName+","+baseUrl+","+Unload+","+Redirect+","+AppCache+","+TTFB+","+Processing+","+Dom_Interactive+","+Dom_Complete+","+Content_load+","+Page_load+","+stringDate+System.lineSeparator();
+		createValueString = appName+","+baseURL+","+Unload+","+Redirect+","+AppCache+","+TTFB+","+Processing+","+Dom_Interactive+","+Dom_Complete+","+Content_load+","+Page_load+","+stringDate+System.lineSeparator();
 
 		navHolder.add(createValueString);
 	}
