@@ -1,6 +1,9 @@
 # PerfoHar
 A Performance Evaluation Framework, build on JAVA works with Selenium </br>
 
+# Download Link
+https://github.com/SohamRoyNoel/PerfoHar/releases/download/PerformanceMeasure/PerfoMeasure.jar
+
 # Dependencies :
 Fillo Jar 1.15 : https://jar-download.com/artifacts/com.codoid.products/fillo/1.15/source-code 
 
