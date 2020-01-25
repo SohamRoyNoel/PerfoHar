@@ -2,6 +2,7 @@ package com.proHar.perfoMeasure.main;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +11,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.proHar.perfoMeasure.main.accessors.PerfoPOJO;
-
 public class ValueParser {
-	PerfoPOJO perfoPOJO = new PerfoPOJO(); 
+	
+	public static ArrayList<String> navHolder = new ArrayList<String>();
+	public static ArrayList<String> resHolder = new ArrayList<String>();
 	
 	// Resource Status
 	@SuppressWarnings("unused")
@@ -100,8 +101,9 @@ public class ValueParser {
 					Date date = new Date();
 					DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 					String stringDate = sdf.format(date);
-					createValueString = appName+","+baseUrl+","+elementHolder.get("name").toString()+","+durations+","+stringDate;
-					System.out.println("Value String : " + createValueString);
+					createValueString = appName+","+baseUrl+","+elementHolder.get("name").toString()+","+durations+","+stringDate+System.lineSeparator();
+//					System.out.println("Value String : " + createValueString);
+					resHolder.add(createValueString);
 				}                  
 			}
 		} catch (Exception e) {   }
@@ -172,7 +174,7 @@ public class ValueParser {
 
 		// Navigation Timings
 		String navigationStatusString = js.executeScript("return window.performance.getEntries()["+0+"]").toString();
-		System.out.println("Navigation : " + navigationStatusString);
+//		System.out.println("Navigation : " + navigationStatusString);
 		// get Navigation value string length
 		int length = navigationStatusString.length();
 		System.out.println(length);
@@ -241,9 +243,9 @@ public class ValueParser {
 		Date date = new Date();
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		String stringDate = sdf.format(date);
-		createValueString = appName+","+baseUrl+","+Unload+","+Redirect+","+AppCache+","+TTFB+","+Processing+","+Dom_Interactive+","+Dom_Complete+","+Content_load+","+Page_load+","+stringDate;
-		System.out.println(createValueString);
-
+		createValueString = appName+","+baseUrl+","+Unload+","+Redirect+","+AppCache+","+TTFB+","+Processing+","+Dom_Interactive+","+Dom_Complete+","+Content_load+","+Page_load+","+stringDate+System.lineSeparator();
+//		System.out.println(createValueString);
+		navHolder.add(createValueString);
 	}
 
 

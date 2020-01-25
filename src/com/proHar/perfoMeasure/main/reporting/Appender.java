@@ -3,14 +3,17 @@ package com.proHar.perfoMeasure.main.reporting;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class Appender {
 
-	public static void appendStrToFile(String fileName,String str)
+	public static void appendStrToFile(String fileName,List<String> str)
 	{
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(fileName, true));
-			out.write(str);
+			for (String s : str) {
+				out.write(s);
+			}
 			out.close();
 		}
 		catch (IOException e) {   }
