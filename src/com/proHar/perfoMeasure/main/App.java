@@ -24,7 +24,7 @@ public class App {
 		}
 		
 		String BaseUrl = driver.getCurrentUrl();
-		String base = BaseUrl.substring(BaseUrl.indexOf(".")+1, BaseUrl.indexOf(".com"));
+		String base = BaseUrl.substring(BaseUrl.indexOf("://")+3, BaseUrl.indexOf(".com"));
 		
 		// Performance Methods
 		try {
