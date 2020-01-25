@@ -230,7 +230,7 @@ public class ValueParser {
 		Date date = new Date();
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		String stringDate = sdf.format(date);
-		createValueString = appName+","+baseURL+","+Unload+","+Redirect+","+AppCache+","+TTFB+","+Processing+","+Dom_Interactive+","+Dom_Complete+","+Content_load+","+Page_load+","+stringDate+System.lineSeparator();
+		createValueString = appName+","+base+","+Unload+","+Redirect+","+AppCache+","+TTFB+","+Processing+","+Dom_Interactive+","+Dom_Complete+","+Content_load+","+Page_load+","+stringDate+System.lineSeparator();
 
 		navHolder.add(createValueString);
 	}
