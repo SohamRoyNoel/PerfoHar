@@ -34,3 +34,50 @@ PerfoHar Will explicitly create a folder on the project Location called 'Output'
 1. Customizable HTML Performance Dashboard. </br>
 2. Option to set VALUES in the runtime.  </br>
 3. No Excel or Database Revolution. </br>
+
+# Sample Code To Test The .jar
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.proHar.perfoMeasure.main.App;
+
+
+public class Main {
+	public static App ap = new App();
+
+	public static void main(String[] args) throws InterruptedException {
+
+		System.setProperty("webdriver.chrome.driver","E:\\Jars\\ChromeDriver-79\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+
+		String baseUrl = "https://www.johnhancock.com/individual.html";
+
+		driver.get(baseUrl);
+		System.out.println("page loaded");
+
+		ap.Performer(driver);
+		
+		driver.get("https://www.stackoverflow.com/questions/35705795/how-to-upload-a-jar-file-to-github");
+		ap.Performer(driver);
+		
+		driver.get("https://www.guru99.com/");
+		ap.Performer(driver);
+		
+		driver.get("https://www.flipkart.com/");
+		ap.Performer(driver);
+		
+		driver.get("https://www.amazon.com/");
+		ap.Performer(driver);
+		
+		driver.get("https://www.manulife.com/");
+		ap.Performer(driver);
+		
+		driver.get("https://www.walmart.com/");
+		ap.Performer(driver);
+		
+		driver.quit();
+		ap.ReportingAgent();
+	}
+
+}
