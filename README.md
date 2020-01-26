@@ -8,25 +8,25 @@ https://github.com/SohamRoyNoel/PerfoHar/releases/download/PerformanceMeasure/Pe
 Fillo Jar 1.15 : https://jar-download.com/artifacts/com.codoid.products/fillo/1.15/source-code 
 
 # How To Use With Existing Selenium Code:
-
-public class Main { </br>
-	       public static App ap = new App(); </br>
-	        public static void main(String[] args) throws InterruptedException { </br>
-		System.setProperty("webdriver.chrome.driver","<Chrome Driver Location>"); </br>
-		WebDriver driver = new ChromeDriver(); </br>
-		String baseUrl = "https://Redirectable_link.com"; </br>
+```
+public class Main { 
+	       public static App ap = new App(); 
+	        public static void main(String[] args) throws InterruptedException { 
+		System.setProperty("webdriver.chrome.driver","<Chrome Driver Location>"); 
+		WebDriver driver = new ChromeDriver(); 
+		String baseUrl = "https://Redirectable_link.com"; 
 		driver.get(baseUrl); </br>
 
-    // Get The Performance List : Pass the driver instance </br>
-		ap.Performer(driver);	 </br>
-		driver.quit(); </br>
+    // Get The Performance List : Pass the driver instance 
+		ap.Performer(driver);	
+		driver.quit(); 
     
-    // In the End You have to call this method in order to get The Excel Report </br>
-		ap.ReportingAgent(); </br>
-	} </br>
+    // In the End You have to call this method in order to get The Excel Report 
+		ap.ReportingAgent(); 
+	} 
 
-} </br>
-
+}
+```
 # Report Generation Path
 PerfoHar Will explicitly create a folder on the project Location called 'Output', all Excel Sheets will be found there
 
@@ -36,7 +36,7 @@ PerfoHar Will explicitly create a folder on the project Location called 'Output'
 3. No Excel or Database Revolution. </br>
 
 # Sample Code To Test The .jar
-
+```
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -81,3 +81,4 @@ public class Main {
 	}
 
 }
+```
