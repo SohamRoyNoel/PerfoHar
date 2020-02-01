@@ -22,7 +22,10 @@ public class Main {
 		driver.quit(); 
     
     // In the End You have to call this method in order to get The Excel Report 
-		ap.ReportingAgent(); 
+		ap.ExcelAgent(); 
+		
+    // from Version 1.5 you can upload your performance in Azure Cloud Database
+                ap.AzureAgent();
 	} 
 
 }
@@ -77,6 +80,9 @@ public class Main {
 		ap.Performer(driver);
 		
 		driver.quit();
+		// AZURE Migration
+		ap.AzureAgent();
+		// Excel Report
 		ap.ReportingAgent();
 	}
 
