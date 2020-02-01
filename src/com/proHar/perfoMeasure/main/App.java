@@ -1,14 +1,25 @@
+/*
+ * Author : Soham Roy, QA Analyst, Cognizant Technology Solutions, Kolkata
+ * */
 package com.proHar.perfoMeasure.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+
+import com.proHar.perfoMeasure.main.databaseModules.AzureDataMigrationUtils;
 import com.proHar.perfoMeasure.main.reporting.ListFileUtils;
 import com.proHar.perfoMeasure.main.reporting.ReporterAgent;
-
+/*
+ * Performance Entry
+ * */
 public class App {
 
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
+	public void Performer(WebDriver driver) {
 		
 		// DirecTory Allocations
 		String workingPath = System.getProperty("user.dir");
@@ -20,19 +31,20 @@ public class App {
 			targetPath.mkdir();
 		}
 		
+		JavascriptExecutor js = (JavascriptExecutor)driver;	
+//		String BaseUrl = js.executeScript("return document.domain;").toString();;
+		String base = js.executeScript("return document.domain;").toString();
+		
 		// Performance Methods
 		try {
-			ValueParser.ResourceAnalyser();
-			ValueParser.NavigationAnalyser();
+			ValueParser.ResourceAnalyser(driver, base);
+			ValueParser.NavigationAnalyser(driver, base);
 		} catch (InterruptedException e) {	}
-		
-		// Log to file
-		try {
-			ReportingAgent();
-		} catch (InterruptedException e) {	}
+
 	}
 	
-	public static void ReportingAgent() throws InterruptedException {
+	// Excel Database generation class
+	public void ExcelAgent() throws InterruptedException {
 		String workingPath = System.getProperty("user.dir");
 		String workingFOLDERpath = workingPath + "\\Output";
 		ReporterAgent ra = new ReporterAgent();
@@ -43,6 +55,14 @@ public class App {
 		try {
 			ListFileUtils.GenerateValueFromExcel(nav, res, workingFOLDERpath);
 		} catch (IOException e) { }
+	}
+	
+	// Azure Data Migration Class
+	public void AzureAgent() {
+		AzureDataMigrationUtils adm = new AzureDataMigrationUtils();
+		try {
+			adm.AzureDatabaseManagerAgent();
+		} catch (ClassNotFoundException | SQLException e) {	}
 	}
 	
 	public static String getNAVlocation(String baseFolderPath) {

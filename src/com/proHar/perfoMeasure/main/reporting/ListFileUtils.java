@@ -27,6 +27,7 @@ public class ListFileUtils {
 			String delimiter = ",";
 			while ((line = bufferedReader.readLine()) != null) {
 				temp = line.split(delimiter);
+				System.out.println("base Url : " + temp[1]);
 				writeDataIntoCellsMismatch(line_count, XSSFSheetSummary, workbook, temp[0], temp[1], temp[2], temp[3], temp[4], temp[5],temp[6],temp[7],temp[8],temp[9],temp[10],temp[11]);
 				line_count++;
 			}
@@ -55,8 +56,8 @@ public class ListFileUtils {
 			reportGenerationHelperObj.writeWorkbook(path1 + "\\Resource_Status" + ".xlsx", workbook);
 			workbook.close();
 		}
-		f1.delete();
-		f2.delete();
+//		f1.delete();
+//		f2.delete();
 	}
 
 	private static void createSummaryReport(XSSFSheet XSSFSheetMismatch, XSSFWorkbook workbook) {
