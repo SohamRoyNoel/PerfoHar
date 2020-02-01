@@ -49,6 +49,8 @@ import com.proHar.perfoMeasure.main.App;
 public class Main {
 	public static App ap = new App();
 
+# AZURE database login link
+https://portal.azure.com/?quickstart=true#home
 	public static void main(String[] args) throws InterruptedException {
 
 		System.setProperty("webdriver.chrome.driver","E:\\Jars\\ChromeDriver-79\\chromedriver.exe");
