@@ -5,8 +5,8 @@ A Performance Evaluation Framework, build on JAVA works with Selenium </br>
 https://github.com/SohamRoyNoel/PerfoHar/releases/download/PerformanceMeasure/PerfoMeasure-1.3.jar
 
 # Dependencies :
-Fillo Jar 1.15 : https://jar-download.com/artifacts/com.codoid.products/fillo/1.15/source-code </ br>
-mariadb-java-client-2.4.4 : https://downloads.mariadb.com/Connectors/java/connector-java-2.4.4/mariadb-java-client-2.4.4.jar </ br>
+Fillo Jar 1.15 : https://jar-download.com/artifacts/com.codoid.products/fillo/1.15/source-code <br />
+mariadb-java-client-2.4.4 : https://downloads.mariadb.com/Connectors/java/connector-java-2.4.4/mariadb-java-client-2.4.4.jar <br />
 mssql-jdbc-7.4.1.jre8 : https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/7.4.1.jre8/mssql-jdbc-7.4.1.jre8.jar
 
 # How To Use With Existing Selenium Code:
